@@ -6,15 +6,12 @@ WORKDIR /app
 # Install dependencies
 RUN apk add --no-cache git
 
-# Copy go mod files from backend directory
-COPY backend/go.mod backend/go.sum ./
-RUN go mod download
-
 # Copy backend source code
 COPY backend/ ./
 
-# Build the application
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+# Download dependencies and build
+RUN go mod download && \
+    CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 
 # Final stage
 FROM alpine:latest
