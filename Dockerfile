@@ -19,8 +19,8 @@ COPY web/package*.json ./
 RUN npm install --omit=dev
 
 COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.mjs ./
+RUN mkdir -p ./public
 
 EXPOSE 3000
 
