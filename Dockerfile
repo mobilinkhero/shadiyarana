@@ -1,30 +1,27 @@
 # Build stage
-FROM golang:1.22-alpine AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Install dependencies
-RUN apk add --no-cache git
+# Copy web app
+COPY web/package*.json ./
+RUN npm ci
 
-# Copy backend source code
-COPY backend/ ./
+COPY web/ ./
+RUN npm run build
 
-# Download dependencies and build
-RUN go mod tidy && \
-    CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+# Production stage
+FROM node:20-alpine
 
-# Final stage
-FROM alpine:latest
+WORKDIR /app
 
-RUN apk --no-cache add ca-certificates
+COPY web/package*.json ./
+RUN npm ci --only=production
 
-WORKDIR /root/
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/next.config.mjs ./
 
-# Copy the binary from builder
-COPY --from=builder /app/main .
+EXPOSE 3000
 
-# Expose port
-EXPOSE 8080
-
-# Run the application
-CMD ["./main"]
+CMD ["npm", "start"]
