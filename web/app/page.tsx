@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FiSearch, FiHeart, FiCalendar, FiStar, FiMapPin } from 'react-icons/fi';
+import { FiSearch, FiHeart, FiCalendar, FiStar, FiMapPin, FiDollarSign } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 
 interface Vendor {
@@ -57,59 +57,91 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 py-20 text-center">
-        <h2 className="text-5xl font-bold text-gray-900 mb-6">
-          Find Your Perfect Wedding Vendors
-        </h2>
-        <p className="text-xl text-gray-600 mb-8">
-          Connect with the best photographers, venues, caterers, and more for your dream wedding
-        </p>
+      <section className="max-w-7xl mx-auto px-4 py-12">
+        <div className="text-center mb-8">
+          <p className="text-gray-600 mb-2">Find Your Perfect</p>
+          <h2 className="text-5xl font-bold text-gray-900 mb-6">
+            Wedding Vendors
+          </h2>
+          <p className="text-lg text-gray-600 mb-8">
+            Connect with the best photographers, venues, caterers, and more for your dream wedding
+          </p>
+        </div>
         
         {/* Search Bar */}
-        <div className="max-w-2xl mx-auto bg-white rounded-full shadow-lg p-2 flex">
-          <input
-            type="text"
-            placeholder="Search for vendors, venues, photographers..."
-            className="flex-1 px-6 py-3 outline-none"
-          />
-          <button className="bg-red-800 text-white px-8 py-3 rounded-full hover:bg-red-900 flex items-center gap-2">
-            <FiSearch /> Search
+        <div className="max-w-2xl mx-auto bg-white rounded-full shadow-lg p-2 flex mb-12">
+          <div className="flex-1 flex items-center px-4">
+            <div className="w-10 h-10 bg-gradient-to-r from-red-800 to-red-900 rounded-full flex items-center justify-center mr-3">
+              <FiSearch className="text-white" />
+            </div>
+            <input
+              type="text"
+              placeholder="Search vendors..."
+              className="flex-1 outline-none"
+            />
+          </div>
+          <button className="bg-red-100 text-red-800 px-6 py-3 rounded-full hover:bg-red-200 flex items-center gap-2">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+            </svg>
           </button>
+        </div>
+
+        {/* Trending Stories */}
+        <div className="mb-12">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">Trending Now</h3>
+          <div className="flex gap-4 overflow-x-auto pb-4">
+            {['New Venues', 'Top Rated', 'Trending', 'Offers', 'Decor', 'Catering', 'Makeup', 'Photos'].map((story, index) => (
+              <div key={index} className="flex-shrink-0">
+                <div className="relative">
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-red-400 to-amber-400 p-1">
+                    <div className="w-full h-full rounded-full bg-white p-1">
+                      <div className="w-full h-full rounded-full bg-gradient-to-br from-red-200 to-amber-200 flex items-center justify-center">
+                        <span className="text-2xl">🎉</span>
+                      </div>
+                    </div>
+                  </div>
+                  {index < 4 && (
+                    <div className="absolute top-0 right-0 w-4 h-4 bg-red-600 rounded-full border-2 border-white"></div>
+                  )}
+                </div>
+                <p className="text-xs text-center mt-2 font-medium">{story}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Features */}
-      <section className="max-w-7xl mx-auto px-4 py-16 grid md:grid-cols-4 gap-8">
-        <div className="bg-white p-6 rounded-xl shadow-md text-center">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <FiSearch className="text-3xl text-red-800" />
-          </div>
-          <h3 className="text-xl font-semibold mb-2">Easy Search</h3>
-          <p className="text-gray-600">Find vendors by category, location, and budget</p>
-        </div>
+      {/* Quick Links */}
+      <section className="max-w-7xl mx-auto px-4 py-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <Link href="/checklist" className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition text-center">
+            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <FiCalendar className="text-2xl text-blue-600" />
+            </div>
+            <h3 className="font-semibold">Checklist</h3>
+          </Link>
 
-        <div className="bg-white p-6 rounded-xl shadow-md text-center">
-          <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <FiStar className="text-3xl text-amber-600" />
-          </div>
-          <h3 className="text-xl font-semibold mb-2">Verified Reviews</h3>
-          <p className="text-gray-600">Read authentic reviews from real couples</p>
-        </div>
+          <Link href="/budget" className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition text-center">
+            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <FiDollarSign className="text-2xl text-green-600" />
+            </div>
+            <h3 className="font-semibold">Budget</h3>
+          </Link>
 
-        <div className="bg-white p-6 rounded-xl shadow-md text-center">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <FiCalendar className="text-3xl text-red-800" />
-          </div>
-          <h3 className="text-xl font-semibold mb-2">Easy Booking</h3>
-          <p className="text-gray-600">Book and manage all your vendors in one place</p>
-        </div>
+          <Link href="/favorites" className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition text-center">
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <FiHeart className="text-2xl text-red-600" />
+            </div>
+            <h3 className="font-semibold">Favorites</h3>
+          </Link>
 
-        <div className="bg-white p-6 rounded-xl shadow-md text-center">
-          <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <FiHeart className="text-3xl text-amber-600" />
-          </div>
-          <h3 className="text-xl font-semibold mb-2">Save Favorites</h3>
-          <p className="text-gray-600">Create your shortlist and compare vendors</p>
+          <Link href="/bookings" className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition text-center">
+            <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <FiCalendar className="text-2xl text-purple-600" />
+            </div>
+            <h3 className="font-semibold">Bookings</h3>
+          </Link>
         </div>
       </section>
 
