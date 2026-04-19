@@ -1,9 +1,45 @@
 'use client';
 
 import Link from 'next/link';
-import { FiSearch, FiHeart, FiCalendar, FiStar } from 'react-icons/fi';
+import { FiSearch, FiHeart, FiCalendar, FiStar, FiMapPin } from 'react-icons/fi';
+import { useEffect, useState } from 'react';
+
+interface Vendor {
+  id: number;
+  name: string;
+  category: string;
+  location: string;
+  price_range: string;
+  rating: number;
+  reviews_count: number;
+  image_url: string;
+}
+
+interface Category {
+  id: number;
+  name: string;
+  icon: string;
+}
 
 export default function HomePage() {
+  const [vendors, setVendors] = useState<Vendor[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    Promise.all([
+      fetch('/api/vendors').then(r => r.json()),
+      fetch('/api/categories').then(r => r.json())
+    ]).then(([vendorsData, categoriesData]) => {
+      setVendors(vendorsData.slice(0, 6));
+      setCategories(categoriesData);
+      setLoading(false);
+    }).catch(err => {
+      console.error('Error loading data:', err);
+      setLoading(false);
+    });
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 to-amber-50">
       {/* Header */}
@@ -80,17 +116,63 @@ export default function HomePage() {
       {/* Categories */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <h2 className="text-3xl font-bold text-center mb-12">Popular Categories</h2>
-        <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-6">
-          {['Photographers', 'Venues', 'Caterers', 'Decorators', 'Makeup Artists', 'DJs'].map((cat) => (
-            <Link
-              key={cat}
-              href={`/categories/${cat.toLowerCase()}`}
-              className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition text-center"
-            >
-              <div className="text-4xl mb-3">📸</div>
-              <h3 className="font-semibold">{cat}</h3>
-            </Link>
-          ))}
+        {loading ? (
+          <div className="text-center">Loading categories...</div>
+        ) : (
+          <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {categories.map((cat) => (
+              <Link
+                key={cat.id}
+                href={`/categories/${cat.name.toLowerCase().replace(/ /g, '-')}`}
+                className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition text-center"
+              >
+                <div className="text-4xl mb-3">{cat.icon}</div>
+                <h3 className="font-semibold">{cat.name}</h3>
+              </Link>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* Featured Vendors */}
+      <section className="max-w-7xl mx-auto px-4 py-16">
+        <h2 className="text-3xl font-bold text-center mb-12">Featured Vendors</h2>
+        {loading ? (
+          <div className="text-center">Loading vendors...</div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {vendors.map((vendor) => (
+              <div key={vendor.id} className="bg-white rounded-xl shadow-md hover:shadow-xl transition overflow-hidden">
+                <div className="h-48 bg-gradient-to-br from-red-200 to-amber-200 flex items-center justify-center">
+                  <span className="text-6xl">📸</span>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">{vendor.name}</h3>
+                  <p className="text-gray-600 mb-2">{vendor.category}</p>
+                  <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
+                    <FiMapPin className="text-red-600" />
+                    {vendor.location}
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      <FiStar className="text-yellow-500 fill-yellow-500" />
+                      <span className="font-semibold">{vendor.rating}</span>
+                      <span className="text-gray-500 text-sm">({vendor.reviews_count})</span>
+                    </div>
+                    <span className="text-red-800 font-semibold">{vendor.price_range}</span>
+                  </div>
+                  <button className="w-full mt-4 bg-red-800 text-white py-2 rounded-lg hover:bg-red-900">
+                    View Details
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        <div className="text-center mt-8">
+          <Link href="/vendors" className="inline-block bg-red-800 text-white px-8 py-3 rounded-lg hover:bg-red-900">
+            View All Vendors
+          </Link>
         </div>
       </section>
 

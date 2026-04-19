@@ -1,6 +1,9 @@
 # Shadiyarana - Complete Wedding Vendor Marketplace
 
-## ✅ What's Included
+## ✅ FULLY FUNCTIONAL SYSTEM
+
+### Live Application
+🌐 **URL**: http://pxartn7us8j1svvp8ika7d3h.213.136.70.242.sslip.io
 
 ### Database Schema
 - Users (Admin, Vendors, Customers)
@@ -13,41 +16,40 @@
 - Blogs
 - Settings
 
-### Dummy Data
+### Dummy Data (Already Initialized)
 - 1 Admin user
 - 3 Regular users
 - 5 Vendor users
 - 10 Vendors across different categories
-- Sample bookings
+- 4 Sample bookings
 - Reviews and ratings
 - Messages
 - 4 Blog posts
 
 ### Features Implemented
-✅ User authentication (login/register)
-✅ Vendor listings with search & filter
-✅ Booking system
-✅ Review & rating system
-✅ Messaging system
-✅ Favorites/wishlist
-✅ Admin panel
-✅ Vendor dashboard
-✅ Blog system
-✅ Settings management
+✅ User authentication (login with JWT)
+✅ Homepage with real vendor listings
+✅ Vendor search and filtering
+✅ Complete admin panel with real-time stats
+✅ Vendor dashboard with analytics
+✅ User management (view all users)
+✅ Vendor management (view all vendors)
+✅ Booking management (view all bookings)
+✅ Real-time statistics
+✅ Responsive design
+✅ Direct PostgreSQL integration
 
-## 🚀 Setup Instructions
+## 🚀 Access the System
 
-### 1. Database Setup
+### Live URLs
 
-Run this command to create tables and insert dummy data:
+- **Homepage**: http://pxartn7us8j1svvp8ika7d3h.213.136.70.242.sslip.io/
+- **All Vendors**: http://pxartn7us8j1svvp8ika7d3h.213.136.70.242.sslip.io/vendors
+- **Login Page**: http://pxartn7us8j1svvp8ika7d3h.213.136.70.242.sslip.io/login
+- **Admin Panel**: http://pxartn7us8j1svvp8ika7d3h.213.136.70.242.sslip.io/admin
+- **Vendor Portal**: http://pxartn7us8j1svvp8ika7d3h.213.136.70.242.sslip.io/vendor
 
-```bash
-cd shadiyarana/web
-npm install
-npm run setup-db
-```
-
-### 2. Default Login Credentials
+### Default Login Credentials
 
 **Admin Panel** (`/admin`):
 - Email: `admin@shadiyarana.com`
@@ -60,12 +62,6 @@ npm run setup-db
 **User Account**:
 - Email: `ali@example.com`
 - Password: `user123`
-
-### 3. Access the System
-
-- **Homepage**: `http://yourdomain.com/`
-- **Admin Panel**: `http://yourdomain.com/admin`
-- **Vendor Portal**: `http://yourdomain.com/vendor`
 
 ## 📊 Database Overview
 
@@ -94,24 +90,37 @@ npm run setup-db
 - Dates ranging from June to August 2026
 - Guest counts from 200 to 500
 
-## 🎯 Next Steps
+## 🎯 What's Working Right Now
 
-1. **Customize Design**: Update colors, logos, and branding
-2. **Add Payment Gateway**: Integrate payment processing
-3. **Email Notifications**: Set up email service
-4. **File Uploads**: Configure image upload for vendors
-5. **Advanced Search**: Add filters and sorting
-6. **Mobile App**: Connect your Flutter app to this backend
+1. ✅ **Homepage**: Shows real vendors from database with categories
+2. ✅ **Vendors Page**: Browse all vendors with search functionality
+3. ✅ **Login System**: JWT-based authentication with role-based redirects
+4. ✅ **Admin Dashboard**: Real-time stats (users, vendors, bookings, revenue)
+5. ✅ **Admin Management**: View and manage users, vendors, and bookings
+6. ✅ **Vendor Dashboard**: Vendor-specific stats and booking list
+7. ✅ **Database**: Fully initialized with 10 vendors, 9 users, bookings, reviews
+
+## 🎯 Next Steps (Optional Enhancements)
+
+1. **Add Payment Gateway**: Integrate Stripe or local payment processor
+2. **Email Notifications**: Set up email service for bookings
+3. **File Uploads**: Configure image upload for vendor galleries
+4. **Advanced Filters**: Add price range, rating, and availability filters
+5. **Reviews System**: Build review submission and display pages
+6. **Messaging**: Implement real-time chat between users and vendors
+7. **Mobile App**: Connect your Flutter app to these APIs
 
 ## 📝 API Endpoints
 
 All API routes are in `/api/*`:
-- `/api/vendors` - List vendors
-- `/api/categories` - List categories
-- `/api/auth/login` - User login
-- `/api/bookings` - Manage bookings
-- `/api/messages` - Chat system
-- `/api/reviews` - Reviews & ratings
+- `/api/vendors` - List all vendors
+- `/api/categories` - List all categories
+- `/api/users` - List all users
+- `/api/bookings` - List all bookings
+- `/api/stats` - Get system statistics
+- `/api/vendor-stats/[id]` - Get vendor-specific stats
+- `/api/auth/login` - User authentication
+- `/api/setup` - Database initialization (already completed)
 
 ## 🔒 Security
 
