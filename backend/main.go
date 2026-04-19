@@ -47,8 +47,9 @@ func main() {
 
 	// Get port from environment or use default
 	port := os.Getenv("PORT")
-	if port == "" {
+	if port == "" || port == "PORT" {
 		port = "8080"
+		log.Println("PORT not set, using default: 8080")
 	}
 
 	log.Printf("Server starting on port %s", port)
