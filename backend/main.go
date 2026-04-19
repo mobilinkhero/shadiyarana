@@ -34,6 +34,19 @@ func main() {
 		AllowCredentials: true,
 	}))
 
+	// Root route
+	router.GET("/", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"name":    "Shadiyarana API",
+			"version": "1.0.0",
+			"status":  "running",
+			"endpoints": gin.H{
+				"health": "/health",
+				"api":    "/api/v1",
+			},
+		})
+	})
+
 	// Health check
 	router.GET("/health", func(c *gin.Context) {
 		c.JSON(200, gin.H{
