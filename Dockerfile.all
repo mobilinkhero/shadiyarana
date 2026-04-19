@@ -1,0 +1,7 @@
+# This Dockerfile is for reference only
+# Use docker-compose.yml to run everything together
+# Or deploy backend and frontend separately on Coolify
+
+FROM alpine:latest
+RUN echo "Use docker-compose.yml to run the full stack"
+CMD ["echo", "This is a placeholder. Use docker-compose up"]
