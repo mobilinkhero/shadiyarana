@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #8B1538;
+  --primary-light: #A91D47;
+  --primary-dark: #6B0F2A;
+  --accent: #D4AF37;
+  --accent-light: #E5C158;
+  --accent-dark: #B8941F;
+}
+
+body {
+  @apply bg-background text-gray-900;
+}
+
+.gradient-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
+}
