@@ -1,0 +1,15 @@
+[phases.setup]
+nixPkgs = ['go_1_22']
+
+[phases.build]
+cmds = [
+  'cd backend',
+  'go mod download',
+  'CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .'
+]
+
+[phases.install]
+cmds = ['echo "No install phase needed"']
+
+[start]
+cmd = 'cd backend && ./main'
