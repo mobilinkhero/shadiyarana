@@ -20,6 +20,7 @@ RUN npm install --omit=dev
 
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/next.config.mjs ./
+COPY --from=builder /app/lib ./lib
 RUN mkdir -p ./public
 
 EXPOSE 3000
