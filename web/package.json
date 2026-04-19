@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start -p 3000",
     "lint": "next lint",
-    "setup-db": "ts-node lib/setup-db.ts"
+    "setup-db": "node lib/setup-db.js"
   },
   "dependencies": {
     "next": "14.2.3",
